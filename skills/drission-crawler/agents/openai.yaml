@@ -1,0 +1,7 @@
+interface:
+  display_name: "DrissionPage Stable Automation"
+  short_description: "用 DrissionPage 稳定执行浏览器自动化与采集"
+  default_prompt: "Use $drission-crawler when driving a real browser with DrissionPage: explicit waits, scoped locators, business postconditions, readback, retry+poll, and live evidence."
+
+policy:
+  allow_implicit_invocation: true

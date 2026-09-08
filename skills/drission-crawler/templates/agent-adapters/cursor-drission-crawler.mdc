@@ -1,0 +1,9 @@
+---
+description: Use for DrissionPage browser automation and crawling — Chromium/9222 takeover, tab.ele/get_frame, iframe, Vue/React dynamic pages, multi-tab, unstable clicks or mixed-up data.
+alwaysApply: false
+---
+
+When this task uses DrissionPage to drive a real browser, read and follow:
+`~/.cursor/skills/drission-crawler/SKILL.md`
+
+Load only the references the routing table points to. Every action must follow scope → wait → locate → act → postcondition → readback → retry/poll → next. Site-specific selectors live in `references/sites/<site>/`, never in the generic files.

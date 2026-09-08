@@ -1,0 +1,14 @@
+{
+  "step_id": "replace_me",
+  "scope": "tab | frame: css:iframe[name='...'] | modal: css:...",
+  "wait": {"locator": "css:...", "state": "displayed", "timeout": 30, "poll": 0.5},
+  "locate": {"locator": "css:...", "visible_only": true, "expected_count": 1},
+  "action": {"type": "click | input | select | navigate", "value": null, "clear": true},
+  "postcondition": {"type": "readback | state_change | new_tab | list_changed", "locator": "css:...", "expected": "replace_me"},
+  "readback": {"required": true},
+  "retry": {"max_attempts": 3, "retryable_errors": ["ElementLostError", "ContextLostError", "iframe_rebuilt"]},
+  "max_depth": 1,
+  "writeback": "log",
+  "cancel_check": true,
+  "evidence_on_failure": true
+}
