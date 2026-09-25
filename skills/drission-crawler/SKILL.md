@@ -51,7 +51,7 @@ description: "用 DrissionPage 稳定执行浏览器自动化与网页采集：�
 - 未证明作用域就遍历全部 frame 或全页搜索；
 - 失败后无条件重复点击或提交；
 - 把单元测试、CONFIG 加载或静态检查写成 live 成功；
-- 用「页签激活」「全局 loading 壳」「列表首项稳定」单独充当「可截图/可入库」就绪（见 [ready-signals.md](references/ready-signals.md)）。
+- 用「页签激活」「全局 loading 壳」「列表/侧栏首项稳定」单独充当「可截图/可入库」就绪；截图、入库、回读字段必须等到层 3（业务区）就绪（分层判定见 [ready-signals.md](references/ready-signals.md)）。
 
 ## 开工检查清单
 
@@ -86,6 +86,25 @@ description: "用 DrissionPage 稳定执行浏览器自动化与网页采集：�
 | `gd-zbtb` | 广东省招标投标监管网 | 监管网、`gdzbtb`、`iframe[name=trading-info]`、`platform-detail`、节点发布情况、项目台账登记、招标项目信息、中标候选人、合同公示、`gmd-spin` | [locator.md](references/sites/gd-zbtb/locator.md) → 症状速查与 SOP-A～K 见 [sop-detail-tab-refresh.md](references/sites/gd-zbtb/sop-detail-tab-refresh.md) |
 
 新站点按 [templates/site-pack-template.md](templates/site-pack-template.md) 建包，并在此表和 [sites/README.md](references/sites/README.md) 各加一行；站点选择器、UI 库 class、业务 TAB 名不要写回通用文件。
+
+#### gd-zbtb 症状 → SOP 速查
+
+命中 `gd-zbtb` 时，遇到下列症状先按对应 SOP 处理，而不是加长盲等（SOP 正文在 [sop-detail-tab-refresh.md](references/sites/gd-zbtb/sop-detail-tab-refresh.md)）：
+
+| 症状 | SOP |
+| --- | --- |
+| TAB 已点亮但采到上一 TAB 卡片 / 节点串名 | SOP-C（内容关键字 + 标题集合，日期可相同） |
+| `get_frame(trading-info)` / CDP `li.item` 超时 | SOP-A + SOP-D（重取 frame、收窄列表 locator） |
+| 登录 CONFIG 成功后采集立刻失败 | SOP-F（settle、按 URL 选 tab、列表/详情判别） |
+| 固定 TAB 枚举报「未找到」 | SOP-B（只采实际存在的 TAB） |
+| GUI 长时间无日志 | SOP-F（stdout/stderr 接日志队列 + 进度文案） |
+| 右侧已渲染仍报「loading」空等 | SOP-H + SOP-K（表单优先；`nested-loading` 壳 ≠ 真 loading） |
+| 截图空白 / 表单未刷出就截图 | SOP-H（右侧业务表单/只读区可见后再截；入口落地 ≠ 表单就绪） |
+| 第 2 个项目搜索框空、列表未过滤 | SOP-I（每轮写框/点查询前重取 `trading-info` iframe） |
+| 详情入口侧栏长期「…招标文件」导致落地超时 | SOP-H（入口只等 TAB + 侧栏稳定；业务字段以目标 TAB 右侧表单为准） |
+| 只需台账登记表却在遍历全部 TAB | SOP-J（列表 √× + 仅合同 TAB） |
+
+SOP-A～K 一览：A iframe 重取 · B 只采实际 TAB · C 切 TAB 内容信号 · D 侧栏 locator · E 列表 vs 详情 · F handoff 二次连接 · G 9222 验收 · H 三层就绪 · I 每轮重取 iframe · J 台账轻量采集 · K 假 loading。
 
 ## 高频失败速查（通用）
 

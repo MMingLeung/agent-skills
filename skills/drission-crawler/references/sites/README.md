@@ -12,7 +12,7 @@
 
 | 代号 | 站点 | 触发线索 | 文件 |
 | --- | --- | --- | --- |
-| `gd-zbtb` | 广东省招标投标监管网 | 监管网、`gdzbtb`、`iframe[name=trading-info]`、`platform-detail`、节点发布情况、项目台账登记、招标项目信息、中标候选人、合同公示、`gmd-spin` | `locator.md`：作用域表、列表↔详情 locator、定位偏好；`sop-detail-tab-refresh.md`：已验证故障表、SOP-A～K（iframe 重取、只采实际 TAB、切 TAB 内容信号、侧栏 locator、列表 vs 详情、handoff 二次连接、9222 验收、三层就绪、每轮重取 iframe、台账轻量采集、假 loading） |
+| `gd-zbtb` | 广东省招标投标监管网 | 监管网、`gdzbtb`、`iframe[name=trading-info]`、`platform-detail`、节点发布情况、项目台账登记、招标项目信息、中标候选人、合同公示、`gmd-spin` | `locator.md`：作用域表、列表↔详情 locator、三层就绪信号与真/假 loading 元素、安全边界、定位偏好；`sop-detail-tab-refresh.md`：已验证故障表、SOP-A～K（iframe 重取、只采实际 TAB、切 TAB 内容信号、侧栏 locator、列表 vs 详情、handoff 二次连接、9222 验收、三层就绪、每轮重取 iframe、台账轻量采集、假 loading） |
 
 ## 一个站点包应包含
 
