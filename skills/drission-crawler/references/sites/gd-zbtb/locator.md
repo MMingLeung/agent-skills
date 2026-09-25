@@ -35,6 +35,22 @@
 列表/详情易混：详情也可能有搜索框。须用 `platform-detail` / 详情 TAB / 列表绿格综合判断。  
 切 TAB、只采实际 TAB、handoff、**三层就绪 / 多项目 iframe / 假 loading**：站点细节见 [sop-detail-tab-refresh.md](sop-detail-tab-refresh.md) SOP-B～K，通用方法见 [ready-signals.md](../../ready-signals.md)。
 
+## 就绪信号（对应 ready-signals 三层，9222 实证 2026-09-07～09-08）
+
+- 层 1 页签激活：`div.active-list.tab-list …` 命中目标 TAB 文案。
+- 层 2 侧栏卡片：`div.wrapper ul.list > li.item` 数量 + 首卡 `.item-title` 签名稳定，且标题命中本 TAB 关键字（SOP-C）。
+- 层 3 业务区：`el-form-item` ≥ 3 或 label 含业务字段（合同 TAB：合同名称 / 合同金额 / 合同单位 / 合同主要内容），或 `gmd-table-tbody` 已有数据行（SOP-H）。
+- 真 loading：可见的 `.gmd-spin-spinning`、可见且非 `display:none` 的 `.el-loading-mask`。
+- 假 loading 壳：`.gmd-spin-nested-loading`（常驻 2 个且 `is_displayed=True`，不得当阻塞条件，SOP-K）。
+
+每轮多项目循环、切 TAB、进出详情后都要重新 `get_frame('css:iframe[name=trading-info]')`（SOP-A / SOP-I）。
+
+## 安全边界
+
+- 默认停在保存前：不点击监管网「保存」「提交」「发布」类按钮，不改动公告、台账或合同表单数据（除非用户明确要求）。
+- 采集与截图只做只读动作：搜索、切 TAB、点绿格进详情、点侧栏卡片。
+- 9222 接管时不 `browser.quit()`、不关闭用户手工打开的 tab，失败后保留现场供下一步继续。
+
 ## 定位偏好
 
 优先使用 CSS 候选列表加精确文本：

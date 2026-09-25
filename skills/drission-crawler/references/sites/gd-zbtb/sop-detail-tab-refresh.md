@@ -1,6 +1,7 @@
 # 站点包 gd-zbtb：详情 TAB / 侧栏列表刷新与二次连接
 
-> 站点：广东省招标投标监管网「节点发布情况 / 项目台账登记」。live 实证沉淀。  
+> 站点：广东省招标投标监管网「节点发布情况 / 项目台账登记」。live 实证沉淀（9222 实页，2026-09-07～09-08 反复实修）。  
+> 症状 → SOP 速查与 SOP-A～K 一览见 [SKILL.md](../../../SKILL.md)「站点包索引」。  
 > 通用判定方法（分层就绪、内容信号、假 loading、每轮重取 frame、列表 vs 详情）见 [ready-signals.md](../../ready-signals.md)；本文只记本站点的选择器、TAB 名和坑。  
 > 适用：Vue 详情多 TAB、侧栏卡片列表、Engine CONFIG 结束后再开 Python 采集、9222 双连接、台账轻量采集。
 
@@ -163,7 +164,7 @@ label 含：合同名称 / 合同金额 / 合同单位 / 合同主要内容 …
 ```text
 for 每个项目:
   回到列表页（必要时导航）
-  frame = 重新 get_frame('css:iframe[name=trading-info]')   # 禁止沿用上一项目详情页的 frame 引用
+  frame = 软重取 get_frame('css:iframe[name=trading-info]')   # 失败返回空并 poll（SOP-A）；禁止沿用上一项目详情页的 frame 引用
   写搜索框 → 回读 value
   点「查询」
   等行集合变化或仅剩命中行
