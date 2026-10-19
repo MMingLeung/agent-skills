@@ -1,11 +1,11 @@
 ---
 name: word-thesis-format
-description: Use when writing or reformatting any Word (.docx) document for Ming — apply the 高等教育自学考试毕业论文 layout (A4, 25mm margins, 小四宋体 + Times New Roman, 1.5 line spacing, 黑体 headings). Default for all Word output unless a new template is given.
+description: Use when writing or reformatting a 毕业论文 / 学位论文 Word (.docx) for Ming — apply the 高等教育自学考试毕业论文 layout (A4, 25mm margins, 小四宋体 + Times New Roman, 1.5 line spacing, 黑体 headings). Not for 操作手册、说明书、技术文档、成果报告 (use work-doc-writer).
 ---
 
-# Word 论文/文档默认版式（高等教育自学考试毕业论文）
+# Word 论文版式（高等教育自学考试毕业论文）
 
-凡是要生成或改排 Word（.docx），默认套用本版式；用户另给新模板时以新模板为准。
+凡是生成或改排毕业论文、学位论文 Word（.docx），套用本版式；用户另给新模板时以新模板为准。操作手册、说明书、技术文档、成果报告等工作文档用 `work-doc-writer`。
 
 ## 1. 页面
 | 项 | 值 |

@@ -24,7 +24,8 @@ cp -R skills/drission-crawler ~/.codex/skills/drission-crawler
 | [`demo-kickoff-card`](skills/demo-kickoff-card/) | 口头业务需求（3～8 条要点）压成四块短「DEMO 开工卡」，缺字段标 `待确认`，DEMO 默认只读/本机 |
 | [`dev-process-handoff`](skills/dev-process-handoff/) | 行为 / 接口 / 默认值 / 流程 / 验收口径变化时，把开发过程关键点写入 `CURRENT_HANDOFF` 与受影响专题；静态检查、单测、live 回读分开表述 |
 | [`government-service-design`](skills/government-service-design/) | 现代政务 / 企业政务类 GUI 设计规范：白底浅灰、默认主色 #0A4CB5，表单表格检索与状态反馈，文案短直接 |
-| [`word-thesis-format`](skills/word-thesis-format/) | 高等教育自学考试毕业论文 Word 版式：A4、页边距 25 mm、小四宋体 + Times New Roman、1.5 倍行距、黑体标题；脚本 `scripts/apply_format.py` |
+| [`word-thesis-format`](skills/word-thesis-format/) | 高等教育自学考试毕业论文 Word 版式：A4、页边距 25 mm、小四宋体 + Times New Roman、1.5 倍行距、黑体标题；脚本 `scripts/apply_format.py`。只管论文，工作文档用 `work-doc-writer` |
+| [`work-doc-writer`](skills/work-doc-writer/) | 操作手册、程序说明书、成果报告：先读源码拿界面文案，按「准备数据 / 操作步骤 / 结果说明」写稿；公文体版式（仿宋_GB2312 三号、标题自动编号、自动目录）；指定截图文件夹后出对照表、画红框加序号并插到对应步骤；脚本含文稿检查和 Word/PDF 预览 |
 
 ## 贡献约定
 
