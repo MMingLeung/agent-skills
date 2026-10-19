@@ -27,6 +27,9 @@ def set_font(style_or_run, east_asia: str, latin: str = "Times New Roman",
     rfonts.set(qn("w:ascii"), latin)
     rfonts.set(qn("w:hAnsi"), latin)
     rfonts.set(qn("w:eastAsia"), east_asia)
+    # Theme fonts override the explicit ascii/eastAsia values when both are set.
+    for theme_attr in ("w:asciiTheme", "w:hAnsiTheme", "w:eastAsiaTheme", "w:cstheme"):
+        rfonts.attrib.pop(qn(theme_attr), None)
 
 
 def para(style, align=None, before=0, after=0, first_line_chars=None):
@@ -70,9 +73,6 @@ def apply(doc: Document) -> Document:
     para(h3, WD_ALIGN_PARAGRAPH.LEFT, before=7, after=7)
     h3.paragraph_format.first_line_indent = Pt(0)
 
-    for st in (h1, h2, h3):
-        st.font.color.rgb = None
-
     try:
         cap = s["Caption"]
     except KeyError:
@@ -80,6 +80,10 @@ def apply(doc: Document) -> Document:
     set_font(cap, "宋体", size=10.5, bold=False)
     para(cap, WD_ALIGN_PARAGRAPH.CENTER)
     cap.paragraph_format.first_line_indent = Pt(0)
+
+    # Built-in Heading/Caption styles ship with a theme accent color.
+    for st in (h1, h2, h3, cap):
+        st.font.color.rgb = None
     return doc
 
 
