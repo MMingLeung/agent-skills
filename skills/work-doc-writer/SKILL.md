@@ -65,6 +65,7 @@ $PY = "C:/Users/ForWork/.conda/envs/CreateReport/python.exe"
 
 - `build_docx.py` 不加参数只生成 docx，目录是空域；加 `--finalize` / `--pdf` / `--preview` 时调用本机 Word（没有就用 WPS）刷新目录。
 - `check_doc.py --code-dir` 会检查正文里加引号的界面名称是否在源码里出现，找不到的列为 WARN。
+- 改了脚本先跑回归：`& $PY -m pytest <skill>/tests -q`。
 
 ## 收尾验证（按 dev-review-verify）
 
