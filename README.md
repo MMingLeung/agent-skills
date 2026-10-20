@@ -1,39 +1,49 @@
 # agent-skills
 
-工作中沉淀的 Agent Skills 公开库。每个技能一个目录，入口为 `SKILL.md`。
+交付里反复用的 Cursor / Codex 技能。
 
-## 安装
+不是通用教程合集，是我从招标监管录入、操作手册、政务 GUI、论文排版里抠出来的写法——agent 读了能少问、少编、少假验证。
 
-### Cursor
+每个目录一个技能，入口是 `SKILL.md`。装到本机后，在对话里提到对应场景就会（或应）被用上。
+
+## 先装哪个
+
+按你现在在干的事选，不必全装：
+
+| 你在干嘛 | 装这个 | 一句话 |
+| --- | --- | --- |
+| 浏览器自动录入、动态页老点不中 | [`drission-crawler`](skills/drission-crawler/) | 稳定等待 + 回读；广东监管网有现成站点包 |
+| 口头需求要开工 DEMO | [`demo-kickoff-card`](skills/demo-kickoff-card/) | 压成四块短卡，缺的标「待确认」 |
+| 行为 / 接口 / 验收变了要留交接 | [`dev-process-handoff`](skills/dev-process-handoff/) | 写进 CURRENT_HANDOFF；单测别冒充 live |
+| 政务后台蓝白灰界面 | [`government-service-design`](skills/government-service-design/) | 默认主色 #0A4CB5，短文案，少装饰 |
+| 操作手册 / 说明书 / 成果报告 | [`work-doc-writer`](skills/work-doc-writer/) | 公文体；截图先出对照表再画红框 |
+| 自考 / 毕业论文 Word | [`word-thesis-format`](skills/word-thesis-format/) | 只管论文版式；工作文档用上面那个 |
+
+写 `work-doc-writer` 之前，交付手册按钮名常和界面不一致，截图红框也对不齐步骤。现在约定：先读源码拿文案，截图先给你确认对照表，再生成 Word。
+
+## 安装（Cursor）
+
+把某个技能目录拷进个人 skills 目录，例如：
 
 ```bash
-cp -R skills/drission-crawler ~/.cursor/skills/drission-crawler
+cp -R skills/work-doc-writer ~/.cursor/skills/work-doc-writer
 ```
 
-### Codex
+Codex 同理，目标改成 `~/.codex/skills/`。装完新开一轮对话更稳。
 
-```bash
-cp -R skills/drission-crawler ~/.codex/skills/drission-crawler
+Windows 可用资源管理器复制，或 PowerShell：
+
+```powershell
+Copy-Item -Recurse skills\work-doc-writer $HOME\.cursor\skills\work-doc-writer
 ```
 
-## 已收录
+## 我怎么维护这些技能
 
-| 技能 | 说明 |
-| --- | --- |
-| [`drission-crawler`](skills/drission-crawler/) | DrissionPage 稳定执行协议 + 可插拔站点兼容包（含广东省招标投标监管网 `gd-zbtb`，SOP-A～K） |
-| [`demo-kickoff-card`](skills/demo-kickoff-card/) | 口头业务需求（3～8 条要点）压成四块短「DEMO 开工卡」，缺字段标 `待确认`，DEMO 默认只读/本机 |
-| [`dev-process-handoff`](skills/dev-process-handoff/) | 行为 / 接口 / 默认值 / 流程 / 验收口径变化时，把开发过程关键点写入 `CURRENT_HANDOFF` 与受影响专题；静态检查、单测、live 回读分开表述 |
-| [`government-service-design`](skills/government-service-design/) | 现代政务 / 企业政务类 GUI 设计规范：白底浅灰、默认主色 #0A4CB5，表单表格检索与状态反馈，文案短直接 |
-| [`word-thesis-format`](skills/word-thesis-format/) | 高等教育自学考试毕业论文 Word 版式：A4、页边距 25 mm、小四宋体 + Times New Roman、1.5 倍行距、黑体标题；脚本 `scripts/apply_format.py`。只管论文，工作文档用 `work-doc-writer` |
-| [`work-doc-writer`](skills/work-doc-writer/) | 操作手册、程序说明书、成果报告：先读源码拿界面文案，按「准备数据 / 操作步骤 / 结果说明」写稿；公文体版式（仿宋_GB2312 三号、标题自动编号、自动目录）；指定截图文件夹后出对照表、画红框加序号并插到对应步骤；脚本含文稿检查和 Word/PDF 预览 |
+- 通用规则放技能根目录和 `references/`
+- 某个网站的选择器、SOP 放 `references/sites/<代号>/`
+- 不提交 `output/`、真实截图、`.env`、Cookie
+- 新站点按 `templates/site-pack-template.md` 建包，并改索引
 
-## 贡献约定
+## 免责
 
-- 通用协议放在技能根目录与 `references/*.md`
-- 站点专用选择器与 SOP 放在 `references/sites/<代号>/`
-- 不要提交 `output/`、截图、`.env`、账号 Cookie 等证据文件
-- 新站点按 `templates/site-pack-template.md` 建包，并更新站点索引表
-
-## 免责声明
-
-站点包仅记录公开页面上的定位与稳定性经验，默认不保存、不提交、不发布表单。使用时请遵守目标站点服务条款与当地法律法规。
+站点相关技能只记公开页上的定位与稳定性经验，默认不保存、不提交、不发布表单。使用请遵守目标站点条款和当地法律。
