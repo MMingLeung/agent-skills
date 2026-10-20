@@ -9,12 +9,12 @@
 
 | 技能 | 用途 |
 | --- | --- |
-| [`drission-crawler`](skills/drission-crawler/) | 浏览器自动化（DrissionPage）：等页面稳定、操作后核对结果。含广东招标投标监管网规则包。 |
-| [`demo-kickoff-card`](skills/demo-kickoff-card/) | 开工前把业务口头交代整理成一张短说明，方便直接做 DEMO。信息不够处标「待确认」，不臆造。 |
-| [`dev-process-handoff`](skills/dev-process-handoff/) | 功能、接口或验收标准有变时，写入项目交接文档。单测与实机验证分开写。 |
-| [`government-service-design`](skills/government-service-design/) | 政务与企政后台界面：白底浅灰，主色 `#0A4CB5`，表单表格优先，文案从短。 |
-| [`work-doc-writer`](skills/work-doc-writer/) | 写操作手册、说明书、成果报告。对照源码核对按钮文案；截图确认后再标注插入。公文体排版。 |
-| [`word-thesis-format`](skills/word-thesis-format/) | 毕业论文 Word 排版：A4、小四宋体、1.5 倍行距、黑体标题。 |
+| [`drission-crawler`](skills/drission-crawler/) | 用 DrissionPage 做稳定的浏览器自动化与网页采集：显式等待、定位、回读、重试与失败证据。已含广东省招标投标监管网（gd-zbtb）规则包。 |
+| [`demo-kickoff-card`](skills/demo-kickoff-card/) | 编码前，把口头业务需求整理成 DEMO 开工卡（固定四块内容）。 |
+| [`dev-process-handoff`](skills/dev-process-handoff/) | 功能行为、接口、默认值、页面流程或验收边界变化时，把关键点写入 CURRENT_HANDOFF 等交接文档。 |
+| [`government-service-design`](skills/government-service-design/) | 政务 / 企业政务 GUI 设计规范：白底浅灰，默认主色 #0A4CB5；表单、表格、检索、状态与任务办理优先；文案短直。 |
+| [`work-doc-writer`](skills/work-doc-writer/) | 编写程序操作手册、说明书/技术文档、成果报告 Word。先读源码取功能与界面文案；可按指定截图文件夹标注后插入。公文体版式。 |
+| [`word-thesis-format`](skills/word-thesis-format/) | 编写或重排毕业论文 Word，应用论文版式（A4、25 mm 页边距、小四宋体 + Times New Roman、1.5 倍行距、黑体标题）。 |
 
 ## 安装
 
