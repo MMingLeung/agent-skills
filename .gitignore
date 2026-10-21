@@ -14,3 +14,8 @@ output/
 *.jpeg
 .idea/
 .vscode/
+
+# 本机项目包：含本机路径与项目信息，只留本机
+skills/*/references/projects/*
+!skills/*/references/projects/README.md
+!skills/*/references/projects/_template/

@@ -71,6 +71,7 @@ description: "用 DrissionPage 稳定执行浏览器自动化与网页采集：�
 | 任务类型 | 读 |
 | --- | --- |
 | 任何点击/输入/导航 | [step-contract.md](references/step-contract.md)、[drissionpage-adapter.md](references/drissionpage-adapter.md)、[retry-cancel-poll.md](references/retry-cancel-poll.md) |
+| 新站摸索 / 录制不稳 / 截到空壳 / SPA 填了不搜 | 再加 [probe-stabilize.md](references/probe-stabilize.md)（跨站「探针→稳态」方法） |
 | iframe、Vue/React 表单、动态列表、重绘 | 再加 [iframe-vue-react.md](references/iframe-vue-react.md) |
 | 多 TAB / 侧栏卡片 / 右侧表单 / loading 判定 / 多条记录循环 | 再加 [ready-signals.md](references/ready-signals.md) |
 | 接管已开浏览器（9222）、CONFIG 结束后二次连接 | [live-browser-9222.md](references/live-browser-9222.md) |
@@ -99,7 +100,7 @@ description: "用 DrissionPage 稳定执行浏览器自动化与网页采集：�
 | 固定 TAB 枚举报「未找到」 | SOP-B（只采实际存在的 TAB） |
 | GUI 长时间无日志 | SOP-F（stdout/stderr 接日志队列 + 进度文案） |
 | 右侧已渲染仍报「loading」空等 | SOP-H + SOP-K（表单优先；`nested-loading` 壳 ≠ 真 loading） |
-| 截图空白 / 表单未刷出就截图 | SOP-H（右侧业务表单/只读区可见后再截；入口落地 ≠ 表单就绪） |
+| 截图空白 / 表单未刷出就截图 | SOP-H（右侧业务表单/只读区可见后再截；入口落地 ≠ 表单就绪）；通用方法见 [probe-stabilize.md](references/probe-stabilize.md) |
 | 第 2 个项目搜索框空、列表未过滤 | SOP-I（每轮写框/点查询前重取 `trading-info` iframe） |
 | 详情入口侧栏长期「…招标文件」导致落地超时 | SOP-H（入口只等 TAB + 侧栏稳定；业务字段以目标 TAB 右侧表单为准） |
 | 只需台账登记表却在遍历全部 TAB | SOP-J（列表 √× + 仅合同 TAB） |
@@ -110,6 +111,7 @@ SOP-A～K 一览：A iframe 重取 · B 只采实际 TAB · C 切 TAB 内容信�
 
 | 症状 | 先查 |
 | --- | --- |
+| 新站不知点哪 / 录制回放就挂 / 截到空壳 | 先探针对比空态vs就绪，再语义步骤 → [probe-stabilize.md](references/probe-stabilize.md) |
 | 点了没反应 / 点了但状态没变 | 是否在旧 frame；`states.is_clickable`/`is_covered`；后置条件是否用业务信号 → adapter、ready-signals |
 | `ElementNotFoundError` / 返回 `NoneElement` | scope 错、iframe 未取、页面重绘 → adapter「作用域」 |
 | `ElementLostError` / `ContextLostError` | 节点已重建，重新 `ele()`/`get_frame()` 再试 → retry-cancel-poll |
@@ -119,6 +121,20 @@ SOP-A～K 一览：A iframe 重取 · B 只采实际 TAB · C 切 TAB 内容信�
 | 第 N 轮搜索框空 / 列表未过滤 | 复用上一轮 frame → ready-signals「每轮重取」 |
 | 点击后新窗口找不到 | 用 `browser.wait.new_tab` 或 `ele.click.for_new_tab` 并按 URL 选 tab → adapter「多 TAB」 |
 | 9222 刚连上就报错 | 与上一连接竞态、选错 tab → live-browser-9222 |
+| 批量里某条被「已完成，跳过」 | 检查点主键撞车（如只按代码，同码多行）→ 下节「人在环批处理」 |
+| 用户点「继续」后整批报错停 | 继续后的回读用了硬校验 → 下节「人在环批处理」 |
+
+## 排障先读落盘日志
+
+用户报「报错 / 跳过 / 卡住」时，**先自己读**最新一批的运行日志、进度、报告（如 `*.run.jsonl`、`*.progress.json`、`*.run-report.json`、`执行记录.log`），按时间对上用户说的那一步，再看代码。不要先让用户贴日志；读不到再问。
+
+## 人在环批处理（暂停 → 用户处理 → 点继续）
+
+逐条录入、中间弹窗让人补录或保存的批处理，统一按这三条：
+
+1. **检查点主键按业务行唯一**：用「业务编号 + 名称 + 序号」这类组合，不要只用一个可能重复的编号（同一投资代码下施工 / 监理是两条）。合并组才用组键。
+2. **用户点「继续」后的回读默认软校验**：字段为空、元素找不到 → 记 `warnings`，带进下一个人工弹窗，继续流程；**不整批终止**。只有「继续会写错数据」的安全前置条件才硬停（如当前页不是空白新增页、作用域不对）。
+3. **跳过、警告都写进报告**：进度文件里每条要能看出是已完成、跳过还是带警告完成，以及原因。
 
 ## 验证边界
 

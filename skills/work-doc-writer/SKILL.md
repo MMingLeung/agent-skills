@@ -35,7 +35,7 @@ description: >-
 1. **读源码拿事实**：入口文件、GUI 文案（按钮、TAB、输入框标题、下拉选项、弹窗提示）、默认值、输入文件要求（文件名关键字、表头、目录结构）、输出文件和位置、需要人工介入的地方（登录、点"继续"）。整理成"功能清单 + 界面文案表"。源码里找不到的内容写"待确认"，不要编。
 2. **截图对照（有截图时）**：按 [reference/screenshots.md](reference/screenshots.md) 逐张看图，写 `shots.json`，用 `annotate.py table` 输出对照表发给用户。**用户确认前不标注、不生成文档。**
 3. **写源稿**：复制对应模板到输出目录，按 [reference/writing-style.md](reference/writing-style.md) 写成 `<文档名>.md`。源稿语法见 [reference/layout.md](reference/layout.md)。
-4. **标注截图**：`annotate.py apply shots.json`，然后用 Read **逐张打开标注图**检查框的位置和序号，不对就改坐标重画。
+4. **标注截图**：`annotate.py apply shots.json`，然后用 Read **逐张打开标注图**检查框的位置和序号。红框坐标必须按 [reference/screenshots.md](reference/screenshots.md) **第 6 节「红框像素校准」**取值与复核——禁止凭缩略图/视觉描述估坐标；不对就改坐标重画。
 5. **检查源稿**：`check_doc.py`，ERROR 必须清零；WARN 逐条看，待确认项汇总给用户。
 6. **生成并预览**：`build_docx.py --preview`，用 Read 打开预览页图检查（见"收尾验证"）。
 7. **按需导出 PDF**：用户要时加 `--pdf`。
@@ -88,5 +88,5 @@ $PY = "C:/Users/ForWork/.conda/envs/CreateReport/python.exe"
 |---|---|
 | [reference/writing-style.md](reference/writing-style.md) | 固定句式、步骤动词、引号规则、安全边界、成果报告写法、错别字表、正反例 |
 | [reference/layout.md](reference/layout.md) | 公文体版式参数、源稿语法、目录更新、已有模板时的处理 |
-| [reference/screenshots.md](reference/screenshots.md) | 截图对照流程、shots.json 字段、标注规范、复核清单、图题写法 |
+| [reference/screenshots.md](reference/screenshots.md) | 截图对照流程、shots.json、标注规范、复核清单、图题写法、**红框像素校准（第 6 节）** |
 | [templates/](templates/) | 三类文档的源稿骨架 |
