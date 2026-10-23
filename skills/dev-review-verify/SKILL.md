@@ -159,6 +159,15 @@ description: >-
 
 转版类功能（Office→PDF、截图排版等）应在项目包里登记一组固定样例；改动相关逻辑后**同一任务内必须**按项目包跑这组样例，并 **用 Read 读渲染图**（禁止只看页数 / exit 0）。
 
+## 交付包路径布局
+
+改交付 bat / sync / 子包工具，或用户抱怨「产物写在子包里 / 交付里找不到入口」时，先读：
+
+[references/delivery-layout.md](references/delivery-layout.md)
+
+（交付根 vs 子包根、产物默认写交付根 `output/`、入口改名与注入、py11 附属 exe）。  
+本机绝对路径与各仓 sync 命令仍只写在 `references/projects/<代号>/delivery.md`（不入库）。
+
 ## 与 handoff
 
 行为/验收变了要更新 handoff；验证表述遵守 `dev-process-handoff`（不伪造 live）。  

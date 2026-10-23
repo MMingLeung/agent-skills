@@ -12,8 +12,11 @@ references/projects/
 ├─ INDEX.md           本机项目包索引（不入库）
 └─ <代号>/            某项目的包（不入库）
    ├─ live-recipes.md 配方卡
-   └─ delivery.md     交付包、sync 命令、资源检查参数（有交付包时）
+   └─ delivery.md     交付包、sync 命令、资源检查参数（有交付包时）；路径通例见上一级 [../delivery-layout.md](../delivery-layout.md)
 ```
+
+通用「交付根 vs 子包根」写在入库文件 [../delivery-layout.md](../delivery-layout.md)；项目包 `delivery.md` 只补本机路径与 sync 表，勿把可复用通例只写在本机包里（否则无法进 GitHub）。
+
 
 ## 新建项目包
 
