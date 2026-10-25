@@ -1,10 +1,10 @@
 ---
 name: government-service-design
 description: >-
-  现代政务 / 企业政务类 GUI 设计规范：白底浅灰、默认主色 #0A4CB5，表单/表格/检索/状态/任务办理优先，
-  文案短直可扫描，少渐变少阴影少大圆角。适用于政务后台、事业单位内部系统、公共服务平台、企政管理后台，
-  以及用户提到政务感、蓝白灰、表单表格检索审批时。不适用于营销落地页、作品集、消费型大圆角/大留白视觉，
-  也不替代通用 UI polish 或动画手感专项 skill。
+  Use when designing or restyling a government or enterprise-admin GUI
+  (forms, tables, search, status, task handling) in a restrained blue-gray look.
+  Triggers: 政务感, 蓝白灰, #0A4CB5, 表单表格检索审批, government admin UI.
+  Do not use for marketing landing pages, portfolios, or motion-only polish.
 ---
 
 # 政务 / 企政 GUI 设计规范

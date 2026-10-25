@@ -1,6 +1,11 @@
 ---
 name: drission-crawler
-description: "用 DrissionPage 稳定执行浏览器自动化与网页采集：显式等待、作用域定位、后置条件、回读、retry+poll、失败证据。适用于 Chromium/Chromium(9222) 接管、iframe、Vue/React 动态页、多 TAB、动态列表、假 loading。用户提到 DrissionPage、tab.ele、get_frame、9222/CDP 接管、动态页采集不稳、点了没反应、串数据时使用；内含按站点拆分的兼容规则包（已有：广东省招标投标监管网 gd-zbtb）。不用于 Playwright/Selenium 代码、纯 requests 解析、抓 locator 清单或编写 flow JSON。"
+description: >-
+  Use when driving a real browser with DrissionPage and the run must wait,
+  locate in scope, read back, and retry. Triggers: DrissionPage, tab.ele,
+  get_frame, 9222, CDP, iframe, Vue/React 动态页, 点了没反应, 串数据,
+  gd-zbtb. Do not use for Playwright or Selenium code, plain requests or HTML
+  parsing, a locator-only dump, or a flow JSON/YAML runner.
 ---
 
 # DrissionPage 稳定执行
@@ -13,8 +18,8 @@ description: "用 DrissionPage 稳定执行浏览器自动化与网页采集：�
 
 - Playwright / Selenium 代码 → 只可借用本技能的协议思想，不套用 API 与 SOP；
 - 纯 `requests` / HTML 解析，无浏览器；
-- 只要打开页面抓元素清单 → `drissionpage-element-capture`；
-- 要把业务编成 flow JSON/YAML 跑框架 → `web-automation-product-framework`。
+- 只打开页面抓一份元素清单：不适用本技能的步骤协议与站点包；
+- 不操作浏览器、只把业务编成 flow JSON/YAML 交给别的运行器：不适用。
 
 ## 硬性步骤协议
 
