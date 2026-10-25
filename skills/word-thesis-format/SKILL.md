@@ -1,6 +1,11 @@
 ---
 name: word-thesis-format
-description: Use when writing or reformatting a 毕业论文 / 学位论文 Word (.docx) for Ming — apply the 高等教育自学考试毕业论文 layout (A4, 25mm margins, 小四宋体 + Times New Roman, 1.5 line spacing, 黑体 headings). Not for 操作手册、说明书、技术文档、成果报告 (use work-doc-writer).
+description: >-
+  Use when writing or reformatting a 毕业论文 / 学位论文 Word (.docx) with a
+  reusable thesis layout (A4, 25 mm margins, 小四宋体 + Times New Roman,
+  1.5 line spacing, 黑体 headings). Triggers: 论文排版, thesis format,
+  dissertation docx. Do not use for 操作手册, 说明书, 技术文档, or 成果报告
+  (use work-doc-writer).
 ---
 
 # Word 论文版式（高等教育自学考试毕业论文）
@@ -66,3 +71,12 @@ Abstract 标题：小二 Times New Roman 加粗，居中。
 3. 中文字体必须同时设 `w:eastAsia`（python-docx 只设 `font.name` 不生效）。
 4. 生成后自检：页边距、正文字体与行距、各级标题、图表题位置、目录是否为域代码。
 5. 交付前在 Word / WPS 里更新一次目录域。
+
+## 10. 常见坑
+
+脚本 `scripts/apply_format.py` 的默认版式名是「高等教育自学考试毕业论文」。用户另给模板时以模板为准。
+
+- **只写了 `font.name`，中文仍是西文。** Word 用 `w:rFonts` 的 `w:eastAsia` 决定中文字体。python-docx 的 `font.name` 通常只落到 ascii / hAnsi。正文要同时 `rFonts.set(qn("w:eastAsia"), "宋体")`，标题用「黑体」。`w:eastAsiaTheme`（以及 `w:asciiTheme`、`w:hAnsiTheme`、`w:cstheme`）若还在，会盖掉显式的 `w:eastAsia`，设完后删掉这些主题属性。
+- **首行缩进按小四估算。** 两个汉字按 12 pt × 2 = 24 pt。改了正文字号却不改缩进，段首会空多或空少。
+- **目录是手打的。** 标题没用 Heading 样式时，Word 自动目录是空的。交付前在 Word / WPS 里更新域。
+- **页边距单位用错。** 25 mm 不是 25 pt。`Mm(25)` 和 `Pt(25)` 差一截，页心会对不齐模板。

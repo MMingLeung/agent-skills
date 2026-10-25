@@ -1,10 +1,11 @@
 ---
 name: dev-review-verify
 description: >-
-  开发收尾强制 REVIEW + 实文件验证，且必须以 LIVE 验收收口：改代码、写 DEMO、转
-  PDF/Excel/Word、改 GUI、改 bat/交付物、改爬虫/归档行为后，禁止只靠 exit0 /
-  pytest / sync / 归类探针 txt 收工。单测与 sync 可先做，但最后一步必须 LIVE；
-  未 LIVE 不得宣称完成。适用于版式、截图、GUI、跑批、交付物、他机包、验收门禁。
+  Use when a code, DEMO, file-conversion, GUI, bat, or crawler change needs a
+  closing review and a real LIVE check before anyone calls it done. Triggers:
+  收尾验收, LIVE 验收, 实跑, review verify, "看起来不对", 交付物验收.
+  Do not use for planning a new feature, or for handoff prose alone
+  (use dev-process-handoff). Passing pytest or sync is not the finish line.
 ---
 
 # 开发收尾：强制 REVIEW + **最后 LIVE 验收**
@@ -23,22 +24,23 @@ description: >-
 5) 写回复三行 + 更新 handoff（若行为有变）
 ```
 
-- **禁止**用步骤 1–3 代替步骤 4。
-- **禁止**把「归类探针 txt / 函数断言 / SYNC_OK / 交付物里源码已含新字符串」写成 LIVE 通过。
-- **禁止**先写「已完成」再补「LIVE：未做」。未 LIVE → 结论只能是 **未验收完成**，不能报成功。
+- 步骤 1–3 代替不了步骤 4。exit 0、pytest、sync 只说明进程或同步没报错，不说明产物在真实路径上能用。
+- 归类探针 txt、函数断言、`SYNC_OK`、交付物源码里出现新字符串，都还不是 LIVE：这些检查没有打开本次新产物。
+- 未做 LIVE 时，结论只能是 **未验收完成**。先写「已完成」再补「LIVE：未做」，会把未验收说成已通过。
 
-## LIVE 配方卡：必须先查卡，不问用户
+## LIVE 配方卡：有本机卡就直接跑，没有卡再按仓库约定
 
 目的：用户不用每次提醒「跑 LIVE」「测试数据在哪」。配方卡 = 某项目的测试数据路径、LIVE 命令、产物位置、通过标准。
 
-**每次验收前必须执行（不得跳过）**：
+`references/projects/INDEX.md` 是本机索引，**不在公开仓库里**。没有这个文件是正常情况：跳过即可，不要向用户要一份仓库里不存在的索引，也不要为了公开仓库新建空索引。
 
-1. 读本技能 [references/projects/INDEX.md](references/projects/INDEX.md)（本机项目包索引，不入公开仓库）。按「触发线索」（工作区路径、仓库名、交付目录名）匹配当前任务。
-2. **命中 → 读该项目包的 `live-recipes.md`，按改动范围找卡直接跑**；不向用户要测试数据、不问「要不要跑 LIVE」。项目包里写的额外必做项（如固定样例视觉回归）同样必做。
-3. 未命中或 `INDEX.md` 不存在 → 退回看当前仓库 `AGENTS.md`、`docs/**/CURRENT_HANDOFF.md` 的 LIVE 行、`scripts/*live*`。
-4. 都没有 → 用本次对话里用户给过的样例跑；跑通后按 [templates/live-recipe-card.md](templates/live-recipe-card.md) **把卡写进本机项目包**（没有包就按 [references/projects/README.md](references/projects/README.md) 新建并登记到 `INDEX.md`）。
-5. 仍无样例才问用户，且只问一次：「LIVE 用哪份数据？」并说明拿到后会记入配方卡。
-6. 一次性 LIVE 逻辑写成顶部配置的 `scripts/_tmp_live_*.py`（放在项目仓库），别只在终端内联跑完就丢；配方卡里登记这个脚本，下次一行复跑。
+**每次验收前按这个顺序找跑法（LIVE 本身不能跳）：**
+
+1. **若**本技能目录里存在 [references/projects/INDEX.md](references/projects/INDEX.md)，按「触发线索」（工作区路径、仓库名、交付目录名）匹配当前任务。命中 → 读该项目包的 `live-recipes.md`，按改动范围找卡直接跑；不向用户要测试数据、不问「要不要跑 LIVE」。项目包里写的额外必做项（如固定样例视觉回归）同样必做。文件不存在 → 跳过本步。
+2. 未命中或没有 `INDEX.md` → 看当前仓库 `AGENTS.md`、`docs/**/CURRENT_HANDOFF.md` 的 LIVE 行、`scripts/*live*`。
+3. 都没有 → 用本次对话里用户给过的样例跑；跑通后按 [templates/live-recipe-card.md](templates/live-recipe-card.md) 把卡写进**本机**项目包（没有包就按 [references/projects/README.md](references/projects/README.md) 新建）。只有本机已经在维护 `INDEX.md` 时才往索引追加一行，不要把索引提交进公开仓库。
+4. 仍无样例才问用户，且只问一次：「LIVE 用哪份数据？」并说明拿到后会记入配方卡。
+5. 一次性 LIVE 逻辑写成顶部配置的 `scripts/_tmp_live_*.py`（放在项目仓库），别只在终端内联跑完就丢；配方卡里登记这个脚本，下次一行复跑。
 
 ## 何时必须执行（同一任务内）
 
@@ -50,14 +52,17 @@ description: >-
 - 改爬虫 / 公告截图 / 归档路由 / 归类 / 文件名等**运行时行为**
 - 用户反馈「看起来不对」「挤在一起」「版式坏了」「交付物里没有 / 没转换」「为什么没 LIVE」
 
-## 硬性禁止
+## 这些不算验收
 
-- 禁止只凭：进程 `exit 0`、文件非空、`get_text` 有字、pytest 绿、**sync 脚本成功**、探针 JSON/TXT → 写成「已验证 / 可用 / 交付物已可用」
-- 禁止不打开产物就说「转换成功」「一页搞定」「版式正常」
-- 禁止把静态检查或单元测试写成 LIVE / 实文件验收成功
-- 禁止只在仓库源码目录验证后宣称「交付物已更新可用」（用户常从交付物/总包启动）
-- 禁止「单测绿 + sync 完」就收工；**缺 LIVE = 任务未完成**
-- 验证未做时：handoff / 回复必须写明「未视觉复核」或「未 LIVE」或「未在交付物实跑」，且**不得**把任务标成已完成/已通过
+下面几项只能说明「没报错」或「源码里有字」，不能写成「已验证 / 可用 / 交付物已可用」：
+
+- 进程 `exit 0`、文件非空、`get_text` 有字、pytest 绿、**sync 脚本成功**、探针 JSON/TXT
+- 没打开产物就说「转换成功」「一页搞定」「版式正常」（挤版、裁切只有看页才看得见）
+- 把静态检查或单元测试写成 LIVE / 实文件验收成功（断言不走真实运行路径）
+- 只在仓库源码目录验证后宣称「交付物已更新可用」（用户常从交付物或总包启动）
+- 「单测绿 + sync 完」就收工。**缺 LIVE = 任务未完成**
+
+验证没做时：handoff 和回复写明「未视觉复核」或「未 LIVE」或「未在交付物实跑」，不要把任务标成已完成或已通过。
 
 ## LIVE 是什么（按改动类型）
 
@@ -68,7 +73,7 @@ description: >-
 | 浏览器 / 爬虫 / 公告截图 / 9222 | 真开浏览器（或约定调试口），跑样例项目或样例 URL，产出截图/目录；**Read 关键 PNG**；遵循 `drission-crawler` |
 | GUI / 交付 bat | 在**交付物根**双击或 `cmd /c` 跑 bat；确认窗口/`ready`；遵循 `windows-gui-bat-launcher` |
 | PDF / Excel / Word 转换 | 实转样例 → 渲染页图 → **Read 图片**看版式 |
-| 纯库函数且无 IO 副作用 | 仍须用**真实样例输入**跑到输出文件或回读结果；禁止只跑 assert 文案冒充 LIVE |
+| 纯库函数且无 IO 副作用 | 仍须用**真实样例输入**跑到输出文件或回读结果。只跑 assert 文案没有经过真实输入输出，不能冒充 LIVE |
 | 有交付包 | LIVE 优先在**交付物路径**（或 sync 后总包）执行，不用「只测仓库源码」代替 |
 
 有交付约定时：先 sync，再在交付物上 LIVE（与「LIVE 在最后」一致：sync 在 LIVE 前）。
@@ -95,13 +100,13 @@ description: >-
 ### C. GUI / bat
 
 1. 遵循 `windows-gui-bat-launcher` 做 LIVE（交付物根）。
-2. 必要时截图或描述实际窗口状态；禁止「import 成功」代替「窗口可用」。
+2. 必要时截图或描述实际窗口状态。「import 成功」看不到窗口是否起来。
 
 ### D. 浏览器 / 爬虫 LIVE
 
 1. 遵循 `drission-crawler`；回读与后置条件。
 2. 验证类型与 handoff 分开写（单测 ≠ live）。
-3. 行为变更必须带**至少一条**与本次需求直接相关的 LIVE 样例（如用户给出的 URL / 台账行）；禁止只做 classify 单元断言。
+3. 行为变更要带**至少一条**与本次需求直接相关的 LIVE 样例（如用户给出的 URL / 台账行）。只做 classify 单元断言对不上这条运行路径。
 
 ### E. 交付物发布 + 在交付物上通过测试（硬性）
 
@@ -125,7 +130,7 @@ description: >-
 
 仅当客观阻塞（例如：9222 未开且无法拉起、站点登录墙、公服必须人工手势且用户不在、用户明确说跳过 LIVE）时，可以不完成 LIVE，但必须：
 
-1. 回复结论写 **未验收完成**（禁止写「已完成 / 已通过 / 可用」）
+1. 回复结论写 **未验收完成**（写成「已完成 / 已通过 / 可用」会掩盖未验收）
 2. 三行里「交付物实跑 / LIVE」写清阻塞原因与下一步
 3. handoff「未做事项」列出待 LIVE 项
 4. **不得**把 pytest/sync 写成已替代 LIVE
@@ -142,7 +147,7 @@ description: >-
 
 ```text
 单测：…（或未做+原因）
-实产物：…（本次 LIVE 生成的图/PDF/目录；禁止只用归类 txt 冒充）
+实产物：…（本次 LIVE 生成的图/PDF/目录；归类 txt 没有页面，不能冒充实产物）
 交付物实跑：…（交付物路径 LIVE；无交付包写不适用；未 LIVE 写未做+阻塞）
 ```
 
@@ -150,14 +155,14 @@ description: >-
 
 ## PDF/Excel/Word 转版特别警告
 
-- **禁止**只靠 FitToPages：WPS/Ket 上 `Fit 1×1` 常把高表**压成页顶小块**（宽表实测）。应：收紧 PrintArea + 合理列宽 + **计算 Zoom**（可低于 60%，一页优先）+ 左右居中。
+- 不要只靠 FitToPages：WPS/Ket 上 `Fit 1×1` 常把高表**压成页顶小块**（宽表实测）。应：收紧 PrintArea + 合理列宽 + **计算 Zoom**（可低于 60%，一页优先）+ 左右居中。
 - 验证时若见「顶上一小条 + 大片白」或内容宽高明显异常（如 w≈110、h≈180 而页高 792）→ **判定失败**，先修再验。
 - Word 多页要一页时：**整页等比缩小拼页**，不要按内容 bbox 裁剪（会丢边框/空白结构）。
 - 要求左右居中时：量 bbox 的 `left_gap`/`right_gap`；勿把「表未铺满页宽」误判为未居中。
 
 ## 固定样例视觉回归
 
-转版类功能（Office→PDF、截图排版等）应在项目包里登记一组固定样例；改动相关逻辑后**同一任务内必须**按项目包跑这组样例，并 **用 Read 读渲染图**（禁止只看页数 / exit 0）。
+转版类功能（Office→PDF、截图排版等）应在项目包里登记一组固定样例；改动相关逻辑后**同一任务内必须**按项目包跑这组样例，并 **用 Read 读渲染图**（只看页数或 exit 0 看不见挤版）。
 
 ## 交付包路径布局
 

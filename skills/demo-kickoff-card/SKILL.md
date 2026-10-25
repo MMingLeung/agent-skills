@@ -1,9 +1,10 @@
 ---
 name: demo-kickoff-card
 description: >-
-  use this when turning messy verbal business asks into a short DEMO kickoff
-  card for Cursor (4 blocks) before coding — oral requirements, 开工卡, DEMO
-  开工, 口头需求压成卡, avoid long freeform prompts
+  Use when turning a messy verbal business ask into a short DEMO kickoff card
+  (four blocks) before coding. Triggers: 开工卡, DEMO 开工, 口头需求,
+  oral requirements, kickoff card, "少写长 prompt". Do not use for a full PRD,
+  production changes, quotes, or schedule commitments.
 ---
 # DEMO 开工卡（口头需求 → Cursor 可开干）
 
@@ -20,7 +21,7 @@ description: >-
 
 ## 硬性规则
 1. 缺字段写 `待确认`，**禁止瞎编业务规则、系统名、字段口径**。
-2. 最多向用户确认 **1 轮**（一次打包 ≤5 个缺口，用 `AskQuestion` 一次弹出，每题第一个选项为推荐项，末题「全部按推荐」）；能默认的写入「假设」并标明。
+2. 最多向用户确认 **1 轮**（一次打包 ≤5 个缺口；用宿主支持的多选一次问完，每题第一个选项为推荐项，末题「全部按推荐」）；能默认的写入「假设」并标明。
 3. 钱、提交、删除、发正式通知、改生产库 → 写入「人拍板与禁止」，默认 DEMO **只读 / 本机 / 测试样例**。
 4. 登录账号、验证码、正式提交仍由用户本人操作。
 5. 代码与数据默认不出公网；无明确授权不写生产、不代发业务消息。

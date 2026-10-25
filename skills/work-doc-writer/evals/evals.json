@@ -1,0 +1,56 @@
+{
+  "skill_name": "work-doc-writer",
+  "evals": [
+    {
+      "id": 1,
+      "should_trigger": true,
+      "prompt": "根据这个程序源码写一份操作手册 Word，按钮名称要和界面一致。",
+      "expected_output": "先读源码取界面文案，按操作手册骨架写，不编按钮。",
+      "assertions": [
+        "从源码整理功能与界面文案",
+        "步骤用中文引号写界面名称",
+        "源码没有的内容标待确认"
+      ]
+    },
+    {
+      "id": 2,
+      "should_trigger": true,
+      "prompt": "评奖要用的成果报告，帮我出 Word。",
+      "expected_output": "选用 report 类型，而不是论文版式。",
+      "assertions": [
+        "文档类型是成果报告",
+        "不改用 word-thesis-format"
+      ]
+    },
+    {
+      "id": 3,
+      "should_trigger": true,
+      "prompt": "这文件夹里的截图先出对照表，我确认后再画红框插进说明书。",
+      "expected_output": "确认对照表之前不标注、不生成文档。",
+      "assertions": [
+        "先出截图对照表",
+        "用户确认前不画框、不生成 docx"
+      ]
+    },
+    {
+      "id": 4,
+      "should_trigger": false,
+      "prompt": "把毕业论文正文重排成小四宋体、1.5 倍行距。",
+      "expected_output": "这是 word-thesis-format。",
+      "assertions": [
+        "不套公文体手册模板",
+        "指向 word-thesis-format"
+      ]
+    },
+    {
+      "id": 5,
+      "should_trigger": false,
+      "prompt": "政务后台查询表格的主色和按钮文案帮我定一下。",
+      "expected_output": "这是 government-service-design，不是写 Word 手册。",
+      "assertions": [
+        "不生成操作手册",
+        "指向 government-service-design"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "skill_name": "windows-gui-bat-launcher",
+  "evals": [
+    {
+      "id": 1,
+      "should_trigger": true,
+      "prompt": "交付包双击 bat 黑框一闪就没了，窗口没出来。",
+      "expected_output": "按 bat 等 ready 的流程排障，默认 python.exe，不要改成 pythonw 当默认。",
+      "assertions": [
+        "黑框可见并提示正在启动",
+        "窗口 show 后写 ready 文件，bat 检测到再退出",
+        "不用 pythonw 作为默认启动"
+      ]
+    },
+    {
+      "id": 2,
+      "should_trigger": true,
+      "prompt": "启动黑框一直不关，ready 标志好像没写上。",
+      "expected_output": "核对 mark_gui_ready 与 bat 里的 READY 名，并说明要 LIVE 实跑 bat。",
+      "assertions": [
+        "ready 文件名两边一致",
+        "超时要打印日志并 pause"
+      ]
+    },
+    {
+      "id": 3,
+      "should_trigger": true,
+      "prompt": "bat 和程序抢同一个 log，报 PermissionError。",
+      "expected_output": "bat 日志与程序日志分开。",
+      "assertions": [
+        "startup_bat 与 app 日志不是同一个文件",
+        "解释抢锁会导致 PermissionError"
+      ]
+    },
+    {
+      "id": 4,
+      "should_trigger": false,
+      "prompt": "给 Linux 服务器写一个 systemd 服务，开机拉起无界面进程。",
+      "expected_output": "这不是 Windows 桌面 bat 启动器。",
+      "assertions": [
+        "不套用 py11\\python.exe 与 ready bat",
+        "不把本技能用于 systemd"
+      ]
+    },
+    {
+      "id": 5,
+      "should_trigger": false,
+      "prompt": "按公文体写一份程序操作手册 Word。",
+      "expected_output": "这是 work-doc-writer。",
+      "assertions": [
+        "不产出 bat 模板",
+        "指向 work-doc-writer"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "skill_name": "demo-kickoff-card",
+  "evals": [
+    {
+      "id": 1,
+      "should_trigger": true,
+      "prompt": "刚跟业务口头对完：要本机把公示时间导出 Excel，先做 DEMO，别动生产。帮我压成开工卡。",
+      "expected_output": "产出四块 DEMO 开工卡。缺的写待确认，不编业务口径。",
+      "assertions": [
+        "交付物是四块【DEMO 开工卡】",
+        "未写明的字段标待确认或假设",
+        "人拍板与禁止里默认只读、本机、测试样例"
+      ]
+    },
+    {
+      "id": 2,
+      "should_trigger": true,
+      "prompt": "这几条要点帮我收成 DEMO 开工卡：谁用、输入输出、不能提交、怎样算 DEMO 过。",
+      "expected_output": "按四块填卡，最多一轮确认缺口。",
+      "assertions": [
+        "四块齐全：背景一句、输入/输出、人拍板与禁止、成功标准",
+        "确认不超过一轮"
+      ]
+    },
+    {
+      "id": 3,
+      "should_trigger": true,
+      "prompt": "Turn this verbal ask into a kickoff card before coding: local read-only export, one sample page, no production writes.",
+      "expected_output": "Same four-block card. Do not expand into a PRD.",
+      "assertions": [
+        "Uses the four-block DEMO card",
+        "Does not invent system names or field definitions"
+      ]
+    },
+    {
+      "id": 4,
+      "should_trigger": false,
+      "prompt": "写一份完整 PRD：技术栈、排期、报价、接口清单都要。",
+      "expected_output": "不启用本技能去承诺工期或报价。",
+      "assertions": [
+        "不把本技能当成完整 PRD 或报价",
+        "不编造工期和价格"
+      ]
+    },
+    {
+      "id": 5,
+      "should_trigger": false,
+      "prompt": "按公文体把这个程序写成操作手册 Word，并插入截图。",
+      "expected_output": "这是 work-doc-writer，不是开工卡。",
+      "assertions": [
+        "不套用四块 DEMO 开工卡去写手册",
+        "指向 work-doc-writer"
+      ]
+    }
+  ]
+}

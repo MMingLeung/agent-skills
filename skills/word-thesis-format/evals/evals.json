@@ -1,0 +1,56 @@
+{
+  "skill_name": "word-thesis-format",
+  "evals": [
+    {
+      "id": 1,
+      "should_trigger": true,
+      "prompt": "毕业论文 Word 要重排：A4，页边距 25 mm，正文小四宋体，1.5 倍行距。",
+      "expected_output": "套用论文版式。另给模板时以模板为准。",
+      "assertions": [
+        "页面 A4、页边距 25 mm",
+        "正文小四宋体 + Times New Roman，1.5 倍行距",
+        "标题用黑体层级"
+      ]
+    },
+    {
+      "id": 2,
+      "should_trigger": true,
+      "prompt": "python-docx 设了 font.name 宋体，打开 Word 中文还是西文。",
+      "expected_output": "说明要设置 w:eastAsia，并去掉 eastAsiaTheme 一类主题字体。",
+      "assertions": [
+        "提到 w:eastAsia",
+        "说明只设 font.name 不够"
+      ]
+    },
+    {
+      "id": 3,
+      "should_trigger": true,
+      "prompt": "Reformat this dissertation docx: headings, captions, and TOC should follow the thesis layout.",
+      "expected_output": "Apply heading levels, figure captions below figures, and a Word TOC field.",
+      "assertions": [
+        "图题在图下、表题在表上",
+        "目录用 Word 自动目录而不是手打"
+      ]
+    },
+    {
+      "id": 4,
+      "should_trigger": false,
+      "prompt": "给业务人员写程序操作手册，步骤里引用按钮名称。",
+      "expected_output": "这是 work-doc-writer。",
+      "assertions": [
+        "不把手册套成论文章标题",
+        "指向 work-doc-writer"
+      ]
+    },
+    {
+      "id": 5,
+      "should_trigger": false,
+      "prompt": "做一套 10 页的汇报 PPT。",
+      "expected_output": "本技能只处理论文 Word 版式。",
+      "assertions": [
+        "不生成幻灯片",
+        "说明适用范围是 docx 论文版式"
+      ]
+    }
+  ]
+}

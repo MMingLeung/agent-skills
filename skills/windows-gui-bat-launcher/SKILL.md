@@ -1,10 +1,11 @@
 ---
 name: windows-gui-bat-launcher
 description: >-
-  Windows 交付包用 bat 启动 PyQt/桌面 GUI：黑框提示「正在启动，请稍候」，
-  程序窗口 show 后写 ready 标志，bat 检测到后自动关闭。适用于交付物 bat、
-  python.exe、启动黑框、ready 标志、启动等待、双击闪退、PermissionError 日志抢锁。
-  默认用 python.exe（不用 pythonw）；改完必须 LIVE 实跑 bat 验证，禁止只靠静态检查。
+  Use when a Windows delivery package starts a PyQt or desktop GUI from a .bat
+  and the console should show a wait message, then close after the window is up.
+  Triggers: 启动黑框, ready 标志, 双击闪退, python.exe, bat launcher,
+  startup wait, PermissionError 日志抢锁. Do not use for web apps, services,
+  or a silent pythonw-only launcher.
 ---
 
 # Windows GUI 交付启动（bat 等待 ready）
@@ -61,54 +62,11 @@ mark_gui_ready("tool_hub")  # 与 bat 中 READY 名一致
 
 生成交付 `paths.py` 时：模板里用 `"ready\\n"`，**不要**再 `.replace(...)` 成真实换行（会弄断字符串 → `SyntaxError`，pythonw 下完全静默）。
 
-## bat 模板（可复制）
+## bat 模板
 
-```bat
-@echo off
-chcp 65001 >nul
-cd /d "%~dp0"
-set "PYTHONPATH=%~dp0"
-set PYTHONUTF8=1
-set "PYTHON=%~dp0py11\python.exe"
-set "READY=%~dp0output\.ready_tool_hub"
-set "LOG=%~dp0output\startup_bat_hub.log"
-if not exist "%~dp0output" mkdir "%~dp0output"
-if exist "%READY%" del /f /q "%READY%" >nul 2>&1
-echo [%DATE% %TIME%] start>"%LOG%"
+可复制模板：[templates/gui-ready-launcher.bat](templates/gui-ready-launcher.bat)。
 
-echo.
-echo ========================================
-echo   正在启动，请稍候...
-echo ========================================
-echo.
-
-if not exist "%PYTHON%" (
-  echo [错误] 未找到 py11\python.exe
-  pause
-  exit /b 2
-)
-echo using python.exe>>"%LOG%"
-start /B "" "%PYTHON%" -X utf8 -m your_package >>"%LOG%" 2>&1
-
-set /a _WAIT=0
-:wait_loop
-if exist "%READY%" goto :ready_ok
-if %_WAIT% GEQ 90 goto :ready_timeout
-set /a _WAIT+=1
-ping -n 2 127.0.0.1 >nul
-goto :wait_loop
-
-:ready_ok
-echo 程序已打开，即将关闭本窗口。
-ping -n 2 127.0.0.1 >nul
-exit /b 0
-
-:ready_timeout
-echo 启动超时。请查看 output\startup_bat_hub.log
-type "%LOG%"
-pause
-exit /b 1
-```
+把 `tool_hub`、`your_package`、日志名改成当前工具。模板里已经包含：可见的「正在启动」提示、`py11\python.exe`（不用 pythonw）、ready 轮询、超时 `type` 日志并 `pause`、bat 日志与程序日志分开。
 
 ## 排障
 

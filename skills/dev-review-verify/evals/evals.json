@@ -1,0 +1,56 @@
+{
+  "skill_name": "dev-review-verify",
+  "evals": [
+    {
+      "id": 1,
+      "should_trigger": true,
+      "prompt": "GUI 和交付 bat 改完了，pytest 是绿的。收工前还要验收什么？",
+      "expected_output": "单测不能收口。最后要在真实路径上做 LIVE，并写三行验收。",
+      "assertions": [
+        "LIVE 放在 pytest 和 sync 之后",
+        "未 LIVE 时结论是未验收完成",
+        "回复包含单测、实产物、交付物实跑"
+      ]
+    },
+    {
+      "id": 2,
+      "should_trigger": true,
+      "prompt": "PDF 转出来了，exit 0。帮我看是不是挤成一条。",
+      "expected_output": "打开渲染页看版式，不以 exit 0 当通过。",
+      "assertions": [
+        "要求看渲染图或等价打开产物",
+        "挤版判失败并先修再验"
+      ]
+    },
+    {
+      "id": 3,
+      "should_trigger": true,
+      "prompt": "为什么这次没 LIVE？归类探针 txt 已经有新字符串了。",
+      "expected_output": "探针 txt 不是 LIVE。有本机 INDEX 就按卡跑，没有就看 AGENTS.md、handoff、scripts。",
+      "assertions": [
+        "不把探针或 SYNC_OK 写成 LIVE 通过",
+        "INDEX.md 缺失时跳过，不要求公开仓库里的索引"
+      ]
+    },
+    {
+      "id": 4,
+      "should_trigger": false,
+      "prompt": "还没写代码。先把口头需求压成一张 DEMO 开工卡。",
+      "expected_output": "这是 demo-kickoff-card，不是收工验收。",
+      "assertions": [
+        "不进入 LIVE 验收流程",
+        "指向 demo-kickoff-card"
+      ]
+    },
+    {
+      "id": 5,
+      "should_trigger": false,
+      "prompt": "只改了空行，行为没变。CURRENT_HANDOFF 要不要改？",
+      "expected_output": "不为此跑验收门禁。交接规则见 dev-process-handoff。",
+      "assertions": [
+        "不把纯格式化当成必须 LIVE 的行为变更",
+        "不伪造已验收"
+      ]
+    }
+  ]
+}

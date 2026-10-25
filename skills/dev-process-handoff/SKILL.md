@@ -1,8 +1,11 @@
 ---
 name: dev-process-handoff
 description: >-
-  在功能行为、接口、默认值、页面流程或验收边界变化时，自动把开发过程关键点写入项目交接交付物（通常为 CURRENT_HANDOFF 与受影响专题文档）。
-  适用于任务收尾、跨会话交接、验收口径变更、以及用户提到 handoff、CURRENT_HANDOFF、交接文档、开发过程关键点或交付物时。
+  Use when a change alters behavior, an API, a default, a page flow, or
+  acceptance criteria and that fact must land in a handoff document.
+  Triggers: handoff, CURRENT_HANDOFF, 交接文档, 验收口径, 开发过程关键点.
+  Do not use for formatting-only refactors or tests that do not change
+  what "done" means.
 ---
 
 # 开发过程关键点交付物（Handoff）
