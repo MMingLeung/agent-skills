@@ -10,7 +10,7 @@ description: >-
 
 # Windows GUI 交付启动（bat 等待 ready）
 
-跨项目通用：双击 bat → 黑框提示等待 → GUI 就绪 → 黑框自动关。
+🖥️ 双击 bat 启动 Windows 桌面程序：命令行窗口先提示正在等待，程序窗口打开后，这个黑框自动关掉。
 
 ## 何时必须用
 

@@ -10,6 +10,8 @@ description: >-
 
 # DrissionPage 稳定执行
 
+🌐 用 DrissionPage 操作真实浏览器时读这份说明：每一步先等页面就绪，再定位、操作，然后读回结果；失败就留下证据，再重试或停下来。
+
 ## 适用与不适用
 
 适用：任何用 DrissionPage（`Chromium` / `ChromiumOptions` / `tab` / `frame`）操作真实浏览器的任务，包括新起浏览器与 9222 接管。
