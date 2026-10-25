@@ -1,12 +1,11 @@
 ---
 name: work-doc-writer
 description: >-
-  按本人既有习惯编写并生成工作文档 Word：程序操作手册、程序说明书/技术文档、成果报告/案例材料。
-  先读程序源码拿到功能和界面文案，按“功能介绍 → 操作说明（准备数据/操作步骤/结果说明）”写稿，
-  界面元素加中文引号、结果用“系统会……”；公文体版式（仿宋_GB2312 三号，黑体/楷体/仿宋标题自动编号，自动目录）。
-  支持用户指定截图文件夹：逐张看图出对照表、确认后画红框加序号，插到对应步骤并配图题。
-  适用于用户提到操作手册、操作说明、使用说明、说明书、技术文档、交付文档、成果报告、案例材料、截图标注、生成 docx 时。
-  不用于毕业论文（用 word-thesis-format）、PPT、营销网页文案。
+  Use when writing a program operation manual, technical specification, or
+  delivery/case report as a Word file, including screenshot callouts.
+  Triggers: 操作手册, 操作说明, 使用说明, 说明书, 技术文档, 成果报告, 案例材料,
+  截图标注, user manual, spec docx. Do not use for 毕业论文 or theses
+  (use word-thesis-format), slides, or marketing copy.
 ---
 
 # 工作文档编写（操作手册 / 说明书 / 成果报告）
@@ -52,10 +51,10 @@ description: >-
 
 ## 脚本
 
-解释器：`C:/Users/ForWork/.conda/envs/CreateReport/python.exe`（需要 python-docx、Pillow、PyMuPDF、PyYAML；换机器时用任一装了这四个包的 Python）。下面 `<skill>` 指本 skill 目录。
+解释器：环境变量 `WORK_DOC_PYTHON` 有值时用它，否则用 PATH 上的 `python`。需要的包：python-docx、Pillow、PyMuPDF、PyYAML。本机可以先 `conda activate CreateReport`，或把该环境的解释器路径设进 `WORK_DOC_PYTHON`。下面 `<skill>` 指本 skill 目录。
 
 ```powershell
-$PY = "C:/Users/ForWork/.conda/envs/CreateReport/python.exe"
+$PY = if ($env:WORK_DOC_PYTHON) { $env:WORK_DOC_PYTHON } else { "python" }
 & $PY <skill>/scripts/annotate.py grid  <截图文件夹>          # 生成坐标网格副本，读框坐标用
 & $PY <skill>/scripts/annotate.py table <shots.json>         # 输出对照表给用户确认
 & $PY <skill>/scripts/annotate.py apply <shots.json>         # 画红框和序号
