@@ -6,13 +6,15 @@ description: >-
   oral requirements, kickoff card, "少写长 prompt". Do not use for a full PRD,
   production changes, quotes, or schedule commitments.
 ---
-# DEMO 开工卡（口头需求 → Cursor 可开干）
+# DEMO 开工卡：写代码前的一页四块清单
 
 ## 目标
-把当面口头/几条要点收成**一张短 DEMO 开工卡**，直接丢进 Cursor 第一轮出可演示草稿。
+
+📝 写代码之前，把当面口头说的几条要点收成一页四块的小清单（DEMO 开工卡），直接贴进 Cursor，做出第一版能演示的草稿。
+
 本 Skill 只产出这张卡（或按卡开 DEMO），不定技术栈长 PRD、不替用户对业务承诺工期/报价、不自动改生产。
 
-对齐关系：字段语义对齐「需求收集卡」，但交付物压成四块短卡，专给「马上做 DEMO」用。完整交接仍可用八节「需求收集卡」。
+四块的字段含义与「需求收集卡」相同，收成短清单，专给马上做 DEMO。完整交接仍用八节「需求收集卡」。
 
 ## 何时用
 - 用户刚跟业务口头对接完，要进 Cursor 做 DEMO

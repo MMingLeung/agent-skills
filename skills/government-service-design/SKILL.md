@@ -9,7 +9,7 @@ description: >-
 
 # 政务 / 企政 GUI 设计规范
 
-面向政务系统、事业单位内部系统、公共服务平台和企业政务类后台。完整 token 见 [tokens.md](tokens.md)；组件与文案细则见 [reference.md](reference.md)。
+🏛️ 做政务系统、事业单位内部系统、公共服务平台或企业政务后台的界面时用：白底浅灰，表单、表格、查询和办理优先，句子短。色值见 [tokens.md](tokens.md)，组件和文案细则见 [reference.md](reference.md)。
 
 ## 何时用 / 不用
 
