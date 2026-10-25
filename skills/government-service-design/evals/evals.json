@@ -1,0 +1,56 @@
+{
+  "skill_name": "government-service-design",
+  "evals": [
+    {
+      "id": 1,
+      "should_trigger": true,
+      "prompt": "做一个政务后台：上面查询，下面审批表格，文案短一点。",
+      "expected_output": "按白底浅灰、表单表格检索来排，未指定色时主色 #0A4CB5。",
+      "assertions": [
+        "未指定主题色时使用 #0A4CB5",
+        "查询在表格前，按钮用短动作词",
+        "不用营销式大留白"
+      ]
+    },
+    {
+      "id": 2,
+      "should_trigger": true,
+      "prompt": "界面要政务感、蓝白灰，主按钮不要做成胶囊。",
+      "expected_output": "主按钮高 36px、圆角 4px，少阴影少大圆角。",
+      "assertions": [
+        "主按钮圆角 4px 量级",
+        "少渐变、少阴影、少大圆角"
+      ]
+    },
+    {
+      "id": 3,
+      "should_trigger": true,
+      "prompt": "这个「请您点击这里进行查询操作」按钮文案太长了，改成政务后台能扫读的。",
+      "expected_output": "按钮改成短动作词，例如查询。",
+      "assertions": [
+        "按钮收敛到约 2–4 个汉字",
+        "去掉客套和长句"
+      ]
+    },
+    {
+      "id": 4,
+      "should_trigger": false,
+      "prompt": "做一页营销落地页，大标题、大留白、渐变背景，用来拉新。",
+      "expected_output": "营销落地页不用本规范。",
+      "assertions": [
+        "不套 #0A4CB5 政务后台布局",
+        "说明不用于营销页"
+      ]
+    },
+    {
+      "id": 5,
+      "should_trigger": false,
+      "prompt": "毕业论文页边距和标题字体按论文改。",
+      "expected_output": "这是 word-thesis-format。",
+      "assertions": [
+        "不改 Word 论文样式",
+        "指向 word-thesis-format"
+      ]
+    }
+  ]
+}

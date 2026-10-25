@@ -1,0 +1,56 @@
+{
+  "skill_name": "dev-process-handoff",
+  "evals": [
+    {
+      "id": 1,
+      "should_trigger": true,
+      "prompt": "默认导出格式从 xls 改成了 xlsx，更新 CURRENT_HANDOFF。",
+      "expected_output": "把默认值变更写入交接，并分开写验证类型。",
+      "assertions": [
+        "记录默认值变了什么",
+        "静态检查、单测、LIVE 分开写",
+        "未做 LIVE 不写成已验收"
+      ]
+    },
+    {
+      "id": 2,
+      "should_trigger": true,
+      "prompt": "验收口径变了：现在必须看交付包里的入口，而不只看源码。交接文档补上。",
+      "expected_output": "更新验收口径和未做事项，不把读过文档写成已验证。",
+      "assertions": [
+        "写下怎样算过",
+        "不把读文档写成目标环境已验证"
+      ]
+    },
+    {
+      "id": 3,
+      "should_trigger": true,
+      "prompt": "这次会话结束了，下一个人需要知道改了哪条页面流程。写交接。",
+      "expected_output": "写变更摘要、事实来源、验收口径。没有 handoff 时先提议路径。",
+      "assertions": [
+        "包含变更摘要与单一事实来源",
+        "不在无关仓库批量铺文档树"
+      ]
+    },
+    {
+      "id": 4,
+      "should_trigger": false,
+      "prompt": "只调整了缩进，行为、接口、验收都没变。",
+      "expected_output": "不为纯格式化改交接文档。",
+      "assertions": [
+        "不强制更新 CURRENT_HANDOFF",
+        "说明纯格式化不改变验收口径"
+      ]
+    },
+    {
+      "id": 5,
+      "should_trigger": false,
+      "prompt": "政务后台表格用什么主色、按钮写多长。",
+      "expected_output": "这是 government-service-design。",
+      "assertions": [
+        "不把配色规范写进 handoff 模板当本次变更",
+        "指向 government-service-design"
+      ]
+    }
+  ]
+}

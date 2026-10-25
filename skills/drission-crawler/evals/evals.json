@@ -1,0 +1,55 @@
+{
+  "skill_name": "drission-crawler",
+  "evals": [
+    {
+      "id": 1,
+      "should_trigger": true,
+      "prompt": "DrissionPage 里点了查询没反应，tab.ele 找到了但状态没变。",
+      "expected_output": "按等待、定位、后置条件、回读、重试来查，不用固定 sleep 代替。",
+      "assertions": [
+        "要求业务后置条件，而不是找到元素就算成功",
+        "失败要分类并 retry+poll"
+      ]
+    },
+    {
+      "id": 2,
+      "should_trigger": true,
+      "prompt": "9222 接管已开浏览器，页面在 iframe 里，Vue 表单填了回读是空的。",
+      "expected_output": "重取 frame，按 Vue 回读处理，不复用旧元素。",
+      "assertions": [
+        "涉及 iframe 时重新 get_frame",
+        "输入后回读 value"
+      ]
+    },
+    {
+      "id": 3,
+      "should_trigger": true,
+      "prompt": "切了详情 TAB 却采到上一条，数据串了。",
+      "expected_output": "等业务区内容信号，不以页签激活单独当就绪。",
+      "assertions": [
+        "不用页签激活单独充当可采集",
+        "切页后不复用旧 tab 或 frame"
+      ]
+    },
+    {
+      "id": 4,
+      "should_trigger": false,
+      "prompt": "用 Playwright 写一段打开页面并点击按钮的脚本。",
+      "expected_output": "不套用 DrissionPage API。协议思想可以另说，但本技能不适用。",
+      "assertions": [
+        "不给出 tab.ele 或 get_frame 作为 Playwright 写法",
+        "说明 Playwright 不套用本技能 API"
+      ]
+    },
+    {
+      "id": 5,
+      "should_trigger": false,
+      "prompt": "这个静态 HTML 用 requests 解析出表格即可，不要开浏览器。",
+      "expected_output": "无浏览器的解析不适用本技能。",
+      "assertions": [
+        "不启动 Chromium 或 9222",
+        "不套用步骤协议去写 requests"
+      ]
+    }
+  ]
+}
